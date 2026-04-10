@@ -1,0 +1,51 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Check if user is authenticated
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // Function to check role (requires reading the users collection)
+    // To optimize, you could use Custom Claims, but this is a standard document-based role check
+    function getUserRole() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role;
+    }
+
+    match /users/{userId} {
+      // Users can read/write their own profiles. Admins can read/write all.
+      // Providers and Pending Providers can read other users (to see client details on tickets)
+      allow read: if isAuthenticated() && (request.auth.uid == userId || getUserRole() == 'admin' || getUserRole() == 'provider' || getUserRole() == 'pending_provider');
+      allow write: if isAuthenticated() && (request.auth.uid == userId || getUserRole() == 'admin');
+    }
+
+    match /tickets/{ticketId} {
+      // DEBUG: Allowing all auth users to read tickets temporarily
+      allow read: if isAuthenticated();
+
+      // Clients can logically create a ticket where clientId is themselves
+      allow create: if isAuthenticated() && getUserRole() == 'client' && request.resource.data.clientId == request.auth.uid;
+
+      // Providers can update 'Pending Acceptance' tickets to assign themselves, or update status of their own tickets
+      // Admins can update any ticket
+      allow update: if isAuthenticated() && (
+        getUserRole() == 'admin' ||
+        (getUserRole() == 'provider' && (
+          (resource.data.status == 'Pending Acceptance' && request.resource.data.providerId == request.auth.uid) ||
+          (resource.data.providerId == request.auth.uid)
+        ))
+      );
+
+      // Only admins can delete tickets
+      allow delete: if isAuthenticated() && getUserRole() == 'admin';
+    }
+
+    match /withdrawals/{requestId} {
+      allow read: if isAuthenticated() && (getUserRole() == 'admin' || resource.data.providerId == request.auth.uid);
+      allow create: if isAuthenticated() && getUserRole() == 'provider' && request.resource.data.providerId == request.auth.uid;
+      allow update: if isAuthenticated() && getUserRole() == 'admin';
+    }
+  }
+}

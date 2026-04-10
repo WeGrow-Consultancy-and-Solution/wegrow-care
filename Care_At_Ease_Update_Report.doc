@@ -1,0 +1,96 @@
+<html xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40">
+<head>
+<meta charset="utf-8">
+<title>Care At Ease - Platform Update Report</title>
+<style>
+  body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+  h1 { color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 5px; }
+  h2 { color: #2980b9; margin-top: 30px; }
+  table { border-collapse: collapse; width: 100%; margin-top: 20px; }
+  th, td { border: 1px solid #bdc3c7; padding: 12px; text-align: left; }
+  th { background-color: #ecf0f1; color: #2c3e50; font-weight: bold; }
+  .hold { background-color: #fce4ec; color: #c62828; }
+  .success { background-color: #e8f5e9; color: #2e7d32; }
+</style>
+</head>
+<body>
+
+<h1>Care At Ease - Development Update Report</h1>
+<p><strong>Date:</strong> April 3, 2026</p>
+<p>This document contains a comprehensive breakdown of the newly deployed platform scaling features and structural updates for the Care At Ease marketplace.</p>
+
+<h2>🚀 Actively Implemented Changes</h2>
+<table>
+  <tr>
+    <th width="20%">Feature Category</th>
+    <th width="25%">Specific Change Implemented</th>
+    <th width="55%">Description of New Logic</th>
+  </tr>
+  <tr>
+    <td><strong>Provider Routing</strong></td>
+    <td>Hyper-Local Pincode Matching</td>
+    <td>Swapped broad city-based matching for specific 6-digit locational matching. The provider dashboard now filters and prioritizes requests closest to their base pincode.</td>
+  </tr>
+  <tr>
+    <td><strong>Acceptance Timeouts</strong></td>
+    <td>Extended Provider Buffer</td>
+    <td>Expanded the hardcoded expiration boundary from 30 minutes to <strong>60 minutes</strong>, giving busy providers a full hour to accept new service tickets.</td>
+  </tr>
+  <tr>
+    <td><strong>Commissions</strong></td>
+    <td>Physiotherapy Restructure</td>
+    <td>Implemented dynamic splitting. The platform now claims <strong>22%</strong> for Physiotherapy (Providers keep <strong>78%</strong>). All other specialties maintain the standard 80/20 split.</td>
+  </tr>
+  <tr>
+    <td><strong>Bookings & Requests</strong></td>
+    <td>Graceful Cancellation Handling</td>
+    <td>Added an interactive <em>Cancel Request</em> button for clients (pre-acceptance) and a <em>Cancel Assignment</em> button for providers. Tickets are safely routed to a 'Cancelled' state without cluttering active feeds.</td>
+  </tr>
+  <tr>
+    <td><strong>Feedback System</strong></td>
+    <td>Client Reviews & Provider Ratings</td>
+    <td>Added a dedicated <em>Rate Service</em> button (1-5 Stars) for clients alongside their PDF receipts. Provider accounts now accurately store and update their average rating and total review counts over time.</td>
+  </tr>
+  <tr>
+    <td><strong>Financial/Tax</strong></td>
+    <td>GST Invoice Compliance</td>
+    <td>Overhauled the PDF receipt generator to be a formal tax document. Automatically injects standard 18% GST (9% SGST / 9% CGST) breakdown, platform GSTIN, and legal SAC service codes.</td>
+  </tr>
+  <tr>
+    <td><strong>Navigation & SEO</strong></td>
+    <td>Blog Anchor & Metatags</td>
+    <td>Added a responsive /blog link to both mobile and desktop menus, and successfully placed the Google Search Console verification meta tag in the main document index root.</td>
+  </tr>
+</table>
+
+<h2>⏸️ Kept On Hold (Pending Future Updates)</h2>
+<table>
+  <tr>
+    <th width="25%">Excluded Feature</th>
+    <th width="60%">Reason For Exclusion</th>
+    <th width="15%">Status</th>
+  </tr>
+  <tr>
+    <td><strong>Automated Refunds</strong></td>
+    <td>To avoid backend financial mishaps and ensure safety, automatic refunds were banned per project rules. Refunds remain a manual administrative action.</td>
+    <td class="hold"><strong>On Hold</strong></td>
+  </tr>
+  <tr>
+    <td><strong>Subscription Packages</strong></td>
+    <td>Advanced payment tracking and 1st-assessment payment routing was delayed, as these will be updated during the next payment gateway integration sprint.</td>
+    <td class="hold"><strong>On Hold</strong></td>
+  </tr>
+  <tr>
+    <td><strong>Cashfree Gateway</strong></td>
+    <td>Currently relying on the active Razorpay bridge while alternative gateway integrations are paused.</td>
+    <td class="hold"><strong>On Hold</strong></td>
+  </tr>
+</table>
+
+<br/>
+<p style="text-align: center; color: #7f8c8d; font-size: 12px; margin-top: 40px; border-top: 1px solid #ecf0f1; padding-top: 10px;">
+  System Generated Report | Care At Ease Operations Track
+</p>
+
+</body>
+</html>
